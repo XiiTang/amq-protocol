@@ -13,21 +13,25 @@ pub struct Credentials {
 
 impl Credentials {
     /// Create a new Credentials instance with the given username and password
+    #[must_use]
     pub fn new(username: LongString, password: LongString) -> Self {
         Self { username, password }
     }
 
     /// Get the username
+    #[must_use]
     pub fn username(&self) -> &LongString {
         &self.username
     }
 
     /// Get the password
+    #[must_use]
     pub fn password(&self) -> &LongString {
         &self.password
     }
 
     /// Get the SASL authentication String for the given SASL mechanism
+    #[must_use]
     pub fn sasl_auth_string(&self, mechanism: SASLMechanism) -> LongString {
         match mechanism {
             SASLMechanism::AMQPlain => self.amqplain_auth_string(),
@@ -38,11 +42,13 @@ impl Credentials {
     }
 
     /// Get the expected challenge for RabbitCrDemo mechanism
+    #[must_use]
     pub fn rabbit_cr_demo_challenge(&self) -> &'static str {
         "Please tell me your password"
     }
 
     /// Get the answer we need to give to the server for the RabbitCrDemo mechanism
+    #[must_use]
     pub fn rabbit_cr_demo_answer(&self) -> LongString {
         format!("My password is {}", self.password).into()
     }

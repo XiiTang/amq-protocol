@@ -101,6 +101,7 @@ pub type ParserError = nom::Err<ParserErrors>;
 pub type ParserResult<I, T> = Result<(I, T), ParserError>;
 
 /// Parse the [AMQPValue](../type.AMQPValue.html) of the given [AMQPType](../type.AMQPType.html)
+#[must_use]
 pub fn parse_raw_value<I: ParsableInput>(
     amqp_type: AMQPType,
 ) -> impl Parser<I, Output = AMQPValue, Error = ParserErrors> {

@@ -56,6 +56,7 @@ impl AMQPType {
     /// We don't strictly follow the spec here but rather the RabbitMQ implementation
     /// 's' means ShortInt (like 'U') instead of ShortString
     /// 'l' and 'L' both mean LongLongInt (no LongLongUInt)
+    #[must_use]
     pub fn from_id(id: char) -> Option<AMQPType> {
         match id {
             't' => Some(AMQPType::Boolean),
@@ -86,6 +87,7 @@ impl AMQPType {
     /// ShortString doesn't have an id, we return '_' instead
     /// ShortInt is supposed to be 'U' but we use 's'
     /// LongLongUInt is supposed to be 'L' but we return 'l' as LongLongInt
+    #[must_use]
     pub fn get_id(self) -> char {
         match self {
             AMQPType::Boolean => 't',
@@ -192,6 +194,7 @@ pub struct DecimalValue {
 
 impl ShortString {
     /// Get a reference to a ShortString as &str
+    #[must_use]
     pub fn as_str(&self) -> &str {
         self.0.as_str()
     }
@@ -238,16 +241,19 @@ impl From<ShortString> for String {
 
 impl LongString {
     /// Get a reference to a LongString as &[u8]
+    #[must_use]
     pub fn as_bytes(&self) -> &[u8] {
         &self.0[..]
     }
 
     /// Get the length of the inner bytes array
+    #[must_use]
     pub fn len(&self) -> usize {
         self.0.len()
     }
 
     /// Check whether the inner bytes array is empty or not
+    #[must_use]
     pub fn is_empty(&self) -> bool {
         self.0.is_empty()
     }
@@ -270,6 +276,7 @@ impl fmt::Display for LongString {
 
 impl FieldArray {
     /// Get the inner values as a slice
+    #[must_use]
     pub fn as_slice(&self) -> &[AMQPValue] {
         self.0.as_slice()
     }
@@ -294,11 +301,13 @@ impl FieldTable {
     }
 
     /// Check whether the table contains the given key
+    #[must_use]
     pub fn contains_key(&self, k: &str) -> bool {
         self.0.contains_key(k)
     }
 
     /// Access the inner BTreeMap to perform lookups
+    #[must_use]
     pub fn inner(&self) -> &BTreeMap<ShortString, AMQPValue> {
         &self.0
     }
@@ -321,16 +330,19 @@ impl From<BTreeMap<ShortString, AMQPValue>> for FieldTable {
 
 impl ByteArray {
     /// Get the inner bytes array as slice
+    #[must_use]
     pub fn as_slice(&self) -> &[u8] {
         self.0.as_slice()
     }
 
     /// Get the length of the inner bytes array
+    #[must_use]
     pub fn len(&self) -> usize {
         self.0.len()
     }
 
     /// Check whether the ByteArray is empty
+    #[must_use]
     pub fn is_empty(&self) -> bool {
         self.0.is_empty()
     }

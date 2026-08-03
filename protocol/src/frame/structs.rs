@@ -12,6 +12,7 @@ pub enum AMQPChannel {
 
 impl AMQPChannel {
     /// Get the channel id
+    #[must_use]
     pub fn get_id(self) -> ChannelId {
         match self {
             AMQPChannel::Global => 0,
@@ -63,11 +64,13 @@ pub enum AMQPFrame {
 
 impl AMQPFrame {
     /// Return whether this frame is an AMQPFrame::Header or not
+    #[must_use]
     pub fn is_header(&self) -> bool {
         matches!(self, AMQPFrame::Header(..))
     }
 
     /// Returns the channel id associated with this frame
+    #[must_use]
     pub fn channel_id(&self) -> ChannelId {
         match self {
             AMQPFrame::ProtocolHeader(_) => 0,
@@ -112,6 +115,7 @@ pub struct ProtocolVersion {
 
 impl ProtocolVersion {
     /// AMQP 0.9.1
+    #[must_use]
     pub fn amqp_0_9_1() -> Self {
         Self {
             major: metadata::MAJOR_VERSION,

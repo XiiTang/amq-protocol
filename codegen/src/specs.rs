@@ -37,6 +37,7 @@ pub struct AMQProtocolDefinition {
 
 impl AMQProtocolDefinition {
     /// Load protocol definition from reference specification
+    #[must_use]
     pub fn load(metadata: Option<Value>) -> AMQProtocolDefinition {
         let specs = include_str!(concat!(
             env!("CARGO_MANIFEST_DIR"),

@@ -46,6 +46,7 @@ pub enum AMQPValue {
 
 impl AMQPValue {
     /// Get the AMQPType of an AMQPValue
+    #[must_use]
     pub fn get_type(&self) -> AMQPType {
         match *self {
             AMQPValue::Boolean(_) => AMQPType::Boolean,
@@ -123,6 +124,7 @@ impl AMQPValue {
     }
 
     /// Returns `Some(())` if this is the `Void` variant, `None` otherwise.
+    #[must_use]
     pub fn as_void(&self) -> Option<()> {
         matches!(self, AMQPValue::Void).then_some(())
     }

@@ -7,6 +7,7 @@ use cookie_factory::{combinator::slice, sequence::tuple};
 use std::io::Write;
 
 /// Serialize a frame in the given buffer
+#[must_use]
 pub fn gen_frame<'a, W: Write + BackToTheBuffer + 'a>(
     frame: &'a AMQPFrame,
 ) -> impl SerializeFn<W> + 'a {

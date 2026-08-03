@@ -29,26 +29,31 @@ pub struct AMQPError {
 
 impl AMQPError {
     /// Create a new error
+    #[must_use]
     pub fn new(kind: AMQPErrorKind, message: ShortString) -> Self {
         Self { kind, message }
     }
 
     /// Get the error corresponding to an id
+    #[must_use]
     pub fn from_id(id: Identifier, message: ShortString) -> Option<Self> {
         AMQPErrorKind::from_id(id).map(|kind| Self { kind, message })
     }
 
     /// Get the kind of error
+    #[must_use]
     pub fn kind(&self) -> &AMQPErrorKind {
         &self.kind
     }
 
     /// Get the id of the error
+    #[must_use]
     pub fn get_id(&self) -> Identifier {
         self.kind.get_id()
     }
 
     /// Get the message of the error
+    #[must_use]
     pub fn get_message(&self) -> &ShortString {
         &self.message
     }
@@ -91,6 +96,7 @@ pub enum AMQPErrorKind {
 
 impl AMQPErrorKind {
     /// Get the id of the error
+    #[must_use]
     pub fn get_id(&self) -> Identifier {
         match *self {
             AMQPErrorKind::Soft(ref s) => s.get_id(),

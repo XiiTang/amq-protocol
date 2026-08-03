@@ -86,6 +86,7 @@ pub enum AMQPSoftError {
 
 impl AMQPSoftError {
     /// Get the id of the soft error
+    #[must_use]
     pub fn get_id(&self) -> Identifier {
         match *self {
             AMQPSoftError::CONTENTTOOLARGE => 311,
@@ -99,6 +100,7 @@ impl AMQPSoftError {
     }
 
     /// Get the soft error corresponding to an id
+    #[must_use]
     pub fn from_id(id: Identifier) -> Option<AMQPSoftError> {
         match id {
             311 => Some(AMQPSoftError::CONTENTTOOLARGE),
@@ -156,6 +158,7 @@ pub enum AMQPHardError {
 
 impl AMQPHardError {
     /// Get the id of the hard error
+    #[must_use]
     pub fn get_id(&self) -> Identifier {
         match *self {
             AMQPHardError::CONNECTIONFORCED => 320,
@@ -173,6 +176,7 @@ impl AMQPHardError {
     }
 
     /// Get the hard error corresponding to an id
+    #[must_use]
     pub fn from_id(id: Identifier) -> Option<AMQPHardError> {
         match id {
             320 => Some(AMQPHardError::CONNECTIONFORCED),
@@ -242,6 +246,7 @@ pub fn parse_class<I: ParsableInput>(i: I) -> ParserResult<I, AMQPClass> {
 }
 
 /// Serialize an AMQP class
+#[must_use]
 pub fn gen_class<'a, W: Write + BackToTheBuffer + 'a>(
     class: &'a AMQPClass,
 ) -> impl SerializeFn<W> + 'a {
@@ -280,6 +285,7 @@ pub enum AMQPClass {
 
 impl AMQPClass {
     /// Get the AMQP class id (Generated)
+    #[must_use]
     pub fn get_amqp_class_id(&self) -> Identifier {
         match self {
             AMQPClass::Basic(_) => 60,
@@ -294,6 +300,7 @@ impl AMQPClass {
     }
 
     /// Get the AMQP method id (Generated)
+    #[must_use]
     pub fn get_amqp_method_id(&self) -> Identifier {
         match self {
             AMQPClass::Basic(basic::AMQPMethod::Qos(_)) => 10,
@@ -465,6 +472,7 @@ pub mod basic {
     }
 
     /// Serialize basic (Generated)
+    #[must_use]
     pub fn gen_basic<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a AMQPMethod,
     ) -> impl SerializeFn<W> + 'a {
@@ -542,11 +550,13 @@ pub mod basic {
 
     impl Qos {
         /// Get the AMQP class id for qos (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             60
         }
 
         /// Get the AMQP method id for qos (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             10
         }
@@ -567,6 +577,7 @@ pub mod basic {
     }
 
     /// Serialize qos (Generated)
+    #[must_use]
     pub fn gen_qos<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Qos,
     ) -> impl SerializeFn<W> + 'a {
@@ -586,11 +597,13 @@ pub mod basic {
 
     impl QosOk {
         /// Get the AMQP class id for qos-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             60
         }
 
         /// Get the AMQP method id for qos-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             11
         }
@@ -602,6 +615,7 @@ pub mod basic {
     }
 
     /// Serialize qos-ok (Generated)
+    #[must_use]
     pub fn gen_qos_ok<'a, W: Write + BackToTheBuffer + 'a>(
         _: &'a QosOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -631,11 +645,13 @@ pub mod basic {
 
     impl Consume {
         /// Get the AMQP class id for consume (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             60
         }
 
         /// Get the AMQP method id for consume (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             20
         }
@@ -663,6 +679,7 @@ pub mod basic {
     }
 
     /// Serialize consume (Generated)
+    #[must_use]
     pub fn gen_consume<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Consume,
     ) -> impl SerializeFn<W> + 'a {
@@ -690,11 +707,13 @@ pub mod basic {
 
     impl ConsumeOk {
         /// Get the AMQP class id for consume-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             60
         }
 
         /// Get the AMQP method id for consume-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             21
         }
@@ -707,6 +726,7 @@ pub mod basic {
     }
 
     /// Serialize consume-ok (Generated)
+    #[must_use]
     pub fn gen_consume_ok<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a ConsumeOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -727,11 +747,13 @@ pub mod basic {
 
     impl Cancel {
         /// Get the AMQP class id for cancel (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             60
         }
 
         /// Get the AMQP method id for cancel (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             30
         }
@@ -751,6 +773,7 @@ pub mod basic {
     }
 
     /// Serialize cancel (Generated)
+    #[must_use]
     pub fn gen_cancel<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Cancel,
     ) -> impl SerializeFn<W> + 'a {
@@ -772,11 +795,13 @@ pub mod basic {
 
     impl CancelOk {
         /// Get the AMQP class id for cancel-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             60
         }
 
         /// Get the AMQP method id for cancel-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             31
         }
@@ -789,6 +814,7 @@ pub mod basic {
     }
 
     /// Serialize cancel-ok (Generated)
+    #[must_use]
     pub fn gen_cancel_ok<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a CancelOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -813,11 +839,13 @@ pub mod basic {
 
     impl Publish {
         /// Get the AMQP class id for publish (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             60
         }
 
         /// Get the AMQP method id for publish (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             40
         }
@@ -841,6 +869,7 @@ pub mod basic {
     }
 
     /// Serialize publish (Generated)
+    #[must_use]
     pub fn gen_publish<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Publish,
     ) -> impl SerializeFn<W> + 'a {
@@ -871,11 +900,13 @@ pub mod basic {
 
     impl Return {
         /// Get the AMQP class id for return (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             60
         }
 
         /// Get the AMQP method id for return (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             50
         }
@@ -899,6 +930,7 @@ pub mod basic {
     }
 
     /// Serialize return (Generated)
+    #[must_use]
     pub fn gen_return<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Return,
     ) -> impl SerializeFn<W> + 'a {
@@ -928,11 +960,13 @@ pub mod basic {
 
     impl Deliver {
         /// Get the AMQP class id for deliver (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             60
         }
 
         /// Get the AMQP method id for deliver (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             60
         }
@@ -958,6 +992,7 @@ pub mod basic {
     }
 
     /// Serialize deliver (Generated)
+    #[must_use]
     pub fn gen_deliver<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Deliver,
     ) -> impl SerializeFn<W> + 'a {
@@ -984,11 +1019,13 @@ pub mod basic {
 
     impl Get {
         /// Get the AMQP class id for get (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             60
         }
 
         /// Get the AMQP method id for get (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             70
         }
@@ -1009,6 +1046,7 @@ pub mod basic {
     }
 
     /// Serialize get (Generated)
+    #[must_use]
     pub fn gen_get<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Get,
     ) -> impl SerializeFn<W> + 'a {
@@ -1039,11 +1077,13 @@ pub mod basic {
 
     impl GetOk {
         /// Get the AMQP class id for get-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             60
         }
 
         /// Get the AMQP method id for get-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             71
         }
@@ -1069,6 +1109,7 @@ pub mod basic {
     }
 
     /// Serialize get-ok (Generated)
+    #[must_use]
     pub fn gen_get_ok<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a GetOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -1090,11 +1131,13 @@ pub mod basic {
 
     impl GetEmpty {
         /// Get the AMQP class id for get-empty (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             60
         }
 
         /// Get the AMQP method id for get-empty (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             72
         }
@@ -1107,6 +1150,7 @@ pub mod basic {
     }
 
     /// Serialize get-empty (Generated)
+    #[must_use]
     pub fn gen_get_empty<'a, W: Write + BackToTheBuffer + 'a>(
         _method: &'a GetEmpty,
     ) -> impl SerializeFn<W> + 'a {
@@ -1127,11 +1171,13 @@ pub mod basic {
 
     impl Ack {
         /// Get the AMQP class id for ack (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             60
         }
 
         /// Get the AMQP method id for ack (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             80
         }
@@ -1151,6 +1197,7 @@ pub mod basic {
     }
 
     /// Serialize ack (Generated)
+    #[must_use]
     pub fn gen_ack<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Ack,
     ) -> impl SerializeFn<W> + 'a {
@@ -1174,11 +1221,13 @@ pub mod basic {
 
     impl Reject {
         /// Get the AMQP class id for reject (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             60
         }
 
         /// Get the AMQP method id for reject (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             90
         }
@@ -1198,6 +1247,7 @@ pub mod basic {
     }
 
     /// Serialize reject (Generated)
+    #[must_use]
     pub fn gen_reject<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Reject,
     ) -> impl SerializeFn<W> + 'a {
@@ -1219,11 +1269,13 @@ pub mod basic {
 
     impl RecoverAsync {
         /// Get the AMQP class id for recover-async (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             60
         }
 
         /// Get the AMQP method id for recover-async (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             100
         }
@@ -1241,6 +1293,7 @@ pub mod basic {
     }
 
     /// Serialize recover-async (Generated)
+    #[must_use]
     pub fn gen_recover_async<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a RecoverAsync,
     ) -> impl SerializeFn<W> + 'a {
@@ -1261,11 +1314,13 @@ pub mod basic {
 
     impl Recover {
         /// Get the AMQP class id for recover (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             60
         }
 
         /// Get the AMQP method id for recover (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             110
         }
@@ -1283,6 +1338,7 @@ pub mod basic {
     }
 
     /// Serialize recover (Generated)
+    #[must_use]
     pub fn gen_recover<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Recover,
     ) -> impl SerializeFn<W> + 'a {
@@ -1300,11 +1356,13 @@ pub mod basic {
 
     impl RecoverOk {
         /// Get the AMQP class id for recover-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             60
         }
 
         /// Get the AMQP method id for recover-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             111
         }
@@ -1316,6 +1374,7 @@ pub mod basic {
     }
 
     /// Serialize recover-ok (Generated)
+    #[must_use]
     pub fn gen_recover_ok<'a, W: Write + BackToTheBuffer + 'a>(
         _: &'a RecoverOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -1337,11 +1396,13 @@ pub mod basic {
 
     impl Nack {
         /// Get the AMQP class id for nack (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             60
         }
 
         /// Get the AMQP method id for nack (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             120
         }
@@ -1362,6 +1423,7 @@ pub mod basic {
     }
 
     /// Serialize nack (Generated)
+    #[must_use]
     pub fn gen_nack<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Nack,
     ) -> impl SerializeFn<W> + 'a {
@@ -1396,132 +1458,161 @@ pub mod basic {
 
     impl AMQPProperties {
         /// Set content-type (Generated)
+        #[must_use]
         pub fn with_content_type(mut self, value: ShortString) -> Self {
             self.content_type = Some(value);
             self
         }
         /// Set content-encoding (Generated)
+        #[must_use]
         pub fn with_content_encoding(mut self, value: ShortString) -> Self {
             self.content_encoding = Some(value);
             self
         }
         /// Set headers (Generated)
+        #[must_use]
         pub fn with_headers(mut self, value: FieldTable) -> Self {
             self.headers = Some(value);
             self
         }
         /// Set delivery-mode (Generated)
+        #[must_use]
         pub fn with_delivery_mode(mut self, value: ShortShortUInt) -> Self {
             self.delivery_mode = Some(value);
             self
         }
         /// Set priority (Generated)
+        #[must_use]
         pub fn with_priority(mut self, value: ShortShortUInt) -> Self {
             self.priority = Some(value);
             self
         }
         /// Set correlation-id (Generated)
+        #[must_use]
         pub fn with_correlation_id(mut self, value: ShortString) -> Self {
             self.correlation_id = Some(value);
             self
         }
         /// Set reply-to (Generated)
+        #[must_use]
         pub fn with_reply_to(mut self, value: ShortString) -> Self {
             self.reply_to = Some(value);
             self
         }
         /// Set expiration (Generated)
+        #[must_use]
         pub fn with_expiration(mut self, value: ShortString) -> Self {
             self.expiration = Some(value);
             self
         }
         /// Set message-id (Generated)
+        #[must_use]
         pub fn with_message_id(mut self, value: ShortString) -> Self {
             self.message_id = Some(value);
             self
         }
         /// Set timestamp (Generated)
+        #[must_use]
         pub fn with_timestamp(mut self, value: Timestamp) -> Self {
             self.timestamp = Some(value);
             self
         }
         /// Set type (Generated)
+        #[must_use]
         pub fn with_type(mut self, value: ShortString) -> Self {
             self.kind = Some(value);
             self
         }
         /// Set user-id (Generated)
+        #[must_use]
         pub fn with_user_id(mut self, value: ShortString) -> Self {
             self.user_id = Some(value);
             self
         }
         /// Set app-id (Generated)
+        #[must_use]
         pub fn with_app_id(mut self, value: ShortString) -> Self {
             self.app_id = Some(value);
             self
         }
         /// Set cluster-id (Generated)
+        #[must_use]
         pub fn with_cluster_id(mut self, value: ShortString) -> Self {
             self.cluster_id = Some(value);
             self
         }
         /// Get content-type (Generated)
+        #[must_use]
         pub fn content_type(&self) -> &Option<ShortString> {
             &self.content_type
         }
         /// Get content-encoding (Generated)
+        #[must_use]
         pub fn content_encoding(&self) -> &Option<ShortString> {
             &self.content_encoding
         }
         /// Get headers (Generated)
+        #[must_use]
         pub fn headers(&self) -> &Option<FieldTable> {
             &self.headers
         }
         /// Get delivery-mode (Generated)
+        #[must_use]
         pub fn delivery_mode(&self) -> &Option<ShortShortUInt> {
             &self.delivery_mode
         }
         /// Get priority (Generated)
+        #[must_use]
         pub fn priority(&self) -> &Option<ShortShortUInt> {
             &self.priority
         }
         /// Get correlation-id (Generated)
+        #[must_use]
         pub fn correlation_id(&self) -> &Option<ShortString> {
             &self.correlation_id
         }
         /// Get reply-to (Generated)
+        #[must_use]
         pub fn reply_to(&self) -> &Option<ShortString> {
             &self.reply_to
         }
         /// Get expiration (Generated)
+        #[must_use]
         pub fn expiration(&self) -> &Option<ShortString> {
             &self.expiration
         }
         /// Get message-id (Generated)
+        #[must_use]
         pub fn message_id(&self) -> &Option<ShortString> {
             &self.message_id
         }
         /// Get timestamp (Generated)
+        #[must_use]
         pub fn timestamp(&self) -> &Option<Timestamp> {
             &self.timestamp
         }
         /// Get type (Generated)
+        #[must_use]
         pub fn kind(&self) -> &Option<ShortString> {
             &self.kind
         }
         /// Get user-id (Generated)
+        #[must_use]
         pub fn user_id(&self) -> &Option<ShortString> {
             &self.user_id
         }
         /// Get app-id (Generated)
+        #[must_use]
         pub fn app_id(&self) -> &Option<ShortString> {
             &self.app_id
         }
         /// Get cluster-id (Generated)
+        #[must_use]
         pub fn cluster_id(&self) -> &Option<ShortString> {
             &self.cluster_id
         }
         /// Get the bitmask for serialization (Generated)
+        #[must_use]
         pub fn bitmask(&self) -> ShortUInt {
             (if self.content_type.is_some() {
                 1 << 15
@@ -1678,6 +1769,7 @@ pub mod basic {
     }
 
     /// Serialize basic properties (Generated)
+    #[must_use]
     pub fn gen_properties<'a, W: Write + BackToTheBuffer + 'a>(
         props: &'a AMQPProperties,
     ) -> impl SerializeFn<W> + 'a {
@@ -1816,6 +1908,7 @@ pub mod connection {
     }
 
     /// Serialize connection (Generated)
+    #[must_use]
     pub fn gen_connection<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a AMQPMethod,
     ) -> impl SerializeFn<W> + 'a {
@@ -1889,11 +1982,13 @@ pub mod connection {
 
     impl Start {
         /// Get the AMQP class id for start (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             10
         }
 
         /// Get the AMQP method id for start (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             10
         }
@@ -1919,6 +2014,7 @@ pub mod connection {
     }
 
     /// Serialize start (Generated)
+    #[must_use]
     pub fn gen_start<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Start,
     ) -> impl SerializeFn<W> + 'a {
@@ -1947,11 +2043,13 @@ pub mod connection {
 
     impl StartOk {
         /// Get the AMQP class id for start-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             10
         }
 
         /// Get the AMQP method id for start-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             11
         }
@@ -1975,6 +2073,7 @@ pub mod connection {
     }
 
     /// Serialize start-ok (Generated)
+    #[must_use]
     pub fn gen_start_ok<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a StartOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -1996,11 +2095,13 @@ pub mod connection {
 
     impl Secure {
         /// Get the AMQP class id for secure (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             10
         }
 
         /// Get the AMQP method id for secure (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             20
         }
@@ -2013,6 +2114,7 @@ pub mod connection {
     }
 
     /// Serialize secure (Generated)
+    #[must_use]
     pub fn gen_secure<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Secure,
     ) -> impl SerializeFn<W> + 'a {
@@ -2031,11 +2133,13 @@ pub mod connection {
 
     impl SecureOk {
         /// Get the AMQP class id for secure-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             10
         }
 
         /// Get the AMQP method id for secure-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             21
         }
@@ -2048,6 +2152,7 @@ pub mod connection {
     }
 
     /// Serialize secure-ok (Generated)
+    #[must_use]
     pub fn gen_secure_ok<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a SecureOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -2070,11 +2175,13 @@ pub mod connection {
 
     impl Tune {
         /// Get the AMQP class id for tune (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             10
         }
 
         /// Get the AMQP method id for tune (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             30
         }
@@ -2096,6 +2203,7 @@ pub mod connection {
     }
 
     /// Serialize tune (Generated)
+    #[must_use]
     pub fn gen_tune<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Tune,
     ) -> impl SerializeFn<W> + 'a {
@@ -2120,11 +2228,13 @@ pub mod connection {
 
     impl TuneOk {
         /// Get the AMQP class id for tune-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             10
         }
 
         /// Get the AMQP method id for tune-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             31
         }
@@ -2146,6 +2256,7 @@ pub mod connection {
     }
 
     /// Serialize tune-ok (Generated)
+    #[must_use]
     pub fn gen_tune_ok<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a TuneOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -2166,11 +2277,13 @@ pub mod connection {
 
     impl Open {
         /// Get the AMQP class id for open (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             10
         }
 
         /// Get the AMQP method id for open (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             40
         }
@@ -2185,6 +2298,7 @@ pub mod connection {
     }
 
     /// Serialize open (Generated)
+    #[must_use]
     pub fn gen_open<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Open,
     ) -> impl SerializeFn<W> + 'a {
@@ -2204,11 +2318,13 @@ pub mod connection {
 
     impl OpenOk {
         /// Get the AMQP class id for open-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             10
         }
 
         /// Get the AMQP method id for open-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             41
         }
@@ -2221,6 +2337,7 @@ pub mod connection {
     }
 
     /// Serialize open-ok (Generated)
+    #[must_use]
     pub fn gen_open_ok<'a, W: Write + BackToTheBuffer + 'a>(
         _method: &'a OpenOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -2245,11 +2362,13 @@ pub mod connection {
 
     impl Close {
         /// Get the AMQP class id for close (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             10
         }
 
         /// Get the AMQP method id for close (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             50
         }
@@ -2273,6 +2392,7 @@ pub mod connection {
     }
 
     /// Serialize close (Generated)
+    #[must_use]
     pub fn gen_close<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Close,
     ) -> impl SerializeFn<W> + 'a {
@@ -2291,11 +2411,13 @@ pub mod connection {
 
     impl CloseOk {
         /// Get the AMQP class id for close-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             10
         }
 
         /// Get the AMQP method id for close-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             51
         }
@@ -2307,6 +2429,7 @@ pub mod connection {
     }
 
     /// Serialize close-ok (Generated)
+    #[must_use]
     pub fn gen_close_ok<'a, W: Write + BackToTheBuffer + 'a>(
         _: &'a CloseOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -2324,11 +2447,13 @@ pub mod connection {
 
     impl Blocked {
         /// Get the AMQP class id for blocked (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             10
         }
 
         /// Get the AMQP method id for blocked (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             60
         }
@@ -2341,6 +2466,7 @@ pub mod connection {
     }
 
     /// Serialize blocked (Generated)
+    #[must_use]
     pub fn gen_blocked<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Blocked,
     ) -> impl SerializeFn<W> + 'a {
@@ -2356,11 +2482,13 @@ pub mod connection {
 
     impl Unblocked {
         /// Get the AMQP class id for unblocked (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             10
         }
 
         /// Get the AMQP method id for unblocked (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             61
         }
@@ -2372,6 +2500,7 @@ pub mod connection {
     }
 
     /// Serialize unblocked (Generated)
+    #[must_use]
     pub fn gen_unblocked<'a, W: Write + BackToTheBuffer + 'a>(
         _: &'a Unblocked,
     ) -> impl SerializeFn<W> + 'a {
@@ -2391,11 +2520,13 @@ pub mod connection {
 
     impl UpdateSecret {
         /// Get the AMQP class id for update-secret (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             10
         }
 
         /// Get the AMQP method id for update-secret (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             70
         }
@@ -2409,6 +2540,7 @@ pub mod connection {
     }
 
     /// Serialize update-secret (Generated)
+    #[must_use]
     pub fn gen_update_secret<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a UpdateSecret,
     ) -> impl SerializeFn<W> + 'a {
@@ -2425,11 +2557,13 @@ pub mod connection {
 
     impl UpdateSecretOk {
         /// Get the AMQP class id for update-secret-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             10
         }
 
         /// Get the AMQP method id for update-secret-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             71
         }
@@ -2441,6 +2575,7 @@ pub mod connection {
     }
 
     /// Serialize update-secret-ok (Generated)
+    #[must_use]
     pub fn gen_update_secret_ok<'a, W: Write + BackToTheBuffer + 'a>(
         _: &'a UpdateSecretOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -2495,6 +2630,7 @@ pub mod channel {
     }
 
     /// Serialize channel (Generated)
+    #[must_use]
     pub fn gen_channel<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a AMQPMethod,
     ) -> impl SerializeFn<W> + 'a {
@@ -2531,11 +2667,13 @@ pub mod channel {
 
     impl Open {
         /// Get the AMQP class id for open (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             20
         }
 
         /// Get the AMQP method id for open (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             10
         }
@@ -2548,6 +2686,7 @@ pub mod channel {
     }
 
     /// Serialize open (Generated)
+    #[must_use]
     pub fn gen_open<'a, W: Write + BackToTheBuffer + 'a>(
         _method: &'a Open,
     ) -> impl SerializeFn<W> + 'a {
@@ -2563,11 +2702,13 @@ pub mod channel {
 
     impl OpenOk {
         /// Get the AMQP class id for open-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             20
         }
 
         /// Get the AMQP method id for open-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             11
         }
@@ -2580,6 +2721,7 @@ pub mod channel {
     }
 
     /// Serialize open-ok (Generated)
+    #[must_use]
     pub fn gen_open_ok<'a, W: Write + BackToTheBuffer + 'a>(
         _method: &'a OpenOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -2598,11 +2740,13 @@ pub mod channel {
 
     impl Flow {
         /// Get the AMQP class id for flow (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             20
         }
 
         /// Get the AMQP method id for flow (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             20
         }
@@ -2620,6 +2764,7 @@ pub mod channel {
     }
 
     /// Serialize flow (Generated)
+    #[must_use]
     pub fn gen_flow<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Flow,
     ) -> impl SerializeFn<W> + 'a {
@@ -2640,11 +2785,13 @@ pub mod channel {
 
     impl FlowOk {
         /// Get the AMQP class id for flow-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             20
         }
 
         /// Get the AMQP method id for flow-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             21
         }
@@ -2662,6 +2809,7 @@ pub mod channel {
     }
 
     /// Serialize flow-ok (Generated)
+    #[must_use]
     pub fn gen_flow_ok<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a FlowOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -2688,11 +2836,13 @@ pub mod channel {
 
     impl Close {
         /// Get the AMQP class id for close (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             20
         }
 
         /// Get the AMQP method id for close (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             40
         }
@@ -2716,6 +2866,7 @@ pub mod channel {
     }
 
     /// Serialize close (Generated)
+    #[must_use]
     pub fn gen_close<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Close,
     ) -> impl SerializeFn<W> + 'a {
@@ -2734,11 +2885,13 @@ pub mod channel {
 
     impl CloseOk {
         /// Get the AMQP class id for close-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             20
         }
 
         /// Get the AMQP method id for close-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             41
         }
@@ -2750,6 +2903,7 @@ pub mod channel {
     }
 
     /// Serialize close-ok (Generated)
+    #[must_use]
     pub fn gen_close_ok<'a, W: Write + BackToTheBuffer + 'a>(
         _: &'a CloseOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -2790,6 +2944,7 @@ pub mod access {
     }
 
     /// Serialize access (Generated)
+    #[must_use]
     pub fn gen_access<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a AMQPMethod,
     ) -> impl SerializeFn<W> + 'a {
@@ -2827,11 +2982,13 @@ pub mod access {
 
     impl Request {
         /// Get the AMQP class id for request (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             30
         }
 
         /// Get the AMQP method id for request (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             10
         }
@@ -2855,6 +3012,7 @@ pub mod access {
     }
 
     /// Serialize request (Generated)
+    #[must_use]
     pub fn gen_request<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Request,
     ) -> impl SerializeFn<W> + 'a {
@@ -2877,11 +3035,13 @@ pub mod access {
 
     impl RequestOk {
         /// Get the AMQP class id for request-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             30
         }
 
         /// Get the AMQP method id for request-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             11
         }
@@ -2894,6 +3054,7 @@ pub mod access {
     }
 
     /// Serialize request-ok (Generated)
+    #[must_use]
     pub fn gen_request_ok<'a, W: Write + BackToTheBuffer + 'a>(
         _method: &'a RequestOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -2962,6 +3123,7 @@ pub mod exchange {
     }
 
     /// Serialize exchange (Generated)
+    #[must_use]
     pub fn gen_exchange<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a AMQPMethod,
     ) -> impl SerializeFn<W> + 'a {
@@ -3021,11 +3183,13 @@ pub mod exchange {
 
     impl Declare {
         /// Get the AMQP class id for declare (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             40
         }
 
         /// Get the AMQP method id for declare (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             10
         }
@@ -3057,6 +3221,7 @@ pub mod exchange {
     }
 
     /// Serialize declare (Generated)
+    #[must_use]
     pub fn gen_declare<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Declare,
     ) -> impl SerializeFn<W> + 'a {
@@ -3082,11 +3247,13 @@ pub mod exchange {
 
     impl DeclareOk {
         /// Get the AMQP class id for declare-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             40
         }
 
         /// Get the AMQP method id for declare-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             11
         }
@@ -3098,6 +3265,7 @@ pub mod exchange {
     }
 
     /// Serialize declare-ok (Generated)
+    #[must_use]
     pub fn gen_declare_ok<'a, W: Write + BackToTheBuffer + 'a>(
         _: &'a DeclareOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -3119,11 +3287,13 @@ pub mod exchange {
 
     impl Delete {
         /// Get the AMQP class id for delete (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             40
         }
 
         /// Get the AMQP method id for delete (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             20
         }
@@ -3145,6 +3315,7 @@ pub mod exchange {
     }
 
     /// Serialize delete (Generated)
+    #[must_use]
     pub fn gen_delete<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Delete,
     ) -> impl SerializeFn<W> + 'a {
@@ -3165,11 +3336,13 @@ pub mod exchange {
 
     impl DeleteOk {
         /// Get the AMQP class id for delete-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             40
         }
 
         /// Get the AMQP method id for delete-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             21
         }
@@ -3181,6 +3354,7 @@ pub mod exchange {
     }
 
     /// Serialize delete-ok (Generated)
+    #[must_use]
     pub fn gen_delete_ok<'a, W: Write + BackToTheBuffer + 'a>(
         _: &'a DeleteOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -3206,11 +3380,13 @@ pub mod exchange {
 
     impl Bind {
         /// Get the AMQP class id for bind (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             40
         }
 
         /// Get the AMQP method id for bind (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             30
         }
@@ -3237,6 +3413,7 @@ pub mod exchange {
     }
 
     /// Serialize bind (Generated)
+    #[must_use]
     pub fn gen_bind<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Bind,
     ) -> impl SerializeFn<W> + 'a {
@@ -3259,11 +3436,13 @@ pub mod exchange {
 
     impl BindOk {
         /// Get the AMQP class id for bind-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             40
         }
 
         /// Get the AMQP method id for bind-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             31
         }
@@ -3275,6 +3454,7 @@ pub mod exchange {
     }
 
     /// Serialize bind-ok (Generated)
+    #[must_use]
     pub fn gen_bind_ok<'a, W: Write + BackToTheBuffer + 'a>(
         _: &'a BindOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -3300,11 +3480,13 @@ pub mod exchange {
 
     impl Unbind {
         /// Get the AMQP class id for unbind (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             40
         }
 
         /// Get the AMQP method id for unbind (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             40
         }
@@ -3331,6 +3513,7 @@ pub mod exchange {
     }
 
     /// Serialize unbind (Generated)
+    #[must_use]
     pub fn gen_unbind<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Unbind,
     ) -> impl SerializeFn<W> + 'a {
@@ -3353,11 +3536,13 @@ pub mod exchange {
 
     impl UnbindOk {
         /// Get the AMQP class id for unbind-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             40
         }
 
         /// Get the AMQP method id for unbind-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             51
         }
@@ -3369,6 +3554,7 @@ pub mod exchange {
     }
 
     /// Serialize unbind-ok (Generated)
+    #[must_use]
     pub fn gen_unbind_ok<'a, W: Write + BackToTheBuffer + 'a>(
         _: &'a UnbindOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -3446,6 +3632,7 @@ pub mod queue {
     }
 
     /// Serialize queue (Generated)
+    #[must_use]
     pub fn gen_queue<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a AMQPMethod,
     ) -> impl SerializeFn<W> + 'a {
@@ -3509,11 +3696,13 @@ pub mod queue {
 
     impl Declare {
         /// Get the AMQP class id for declare (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             50
         }
 
         /// Get the AMQP method id for declare (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             10
         }
@@ -3543,6 +3732,7 @@ pub mod queue {
     }
 
     /// Serialize declare (Generated)
+    #[must_use]
     pub fn gen_declare<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Declare,
     ) -> impl SerializeFn<W> + 'a {
@@ -3574,11 +3764,13 @@ pub mod queue {
 
     impl DeclareOk {
         /// Get the AMQP class id for declare-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             50
         }
 
         /// Get the AMQP method id for declare-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             11
         }
@@ -3600,6 +3792,7 @@ pub mod queue {
     }
 
     /// Serialize declare-ok (Generated)
+    #[must_use]
     pub fn gen_declare_ok<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a DeclareOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -3628,11 +3821,13 @@ pub mod queue {
 
     impl Bind {
         /// Get the AMQP class id for bind (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             50
         }
 
         /// Get the AMQP method id for bind (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             20
         }
@@ -3659,6 +3854,7 @@ pub mod queue {
     }
 
     /// Serialize bind (Generated)
+    #[must_use]
     pub fn gen_bind<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Bind,
     ) -> impl SerializeFn<W> + 'a {
@@ -3681,11 +3877,13 @@ pub mod queue {
 
     impl BindOk {
         /// Get the AMQP class id for bind-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             50
         }
 
         /// Get the AMQP method id for bind-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             21
         }
@@ -3697,6 +3895,7 @@ pub mod queue {
     }
 
     /// Serialize bind-ok (Generated)
+    #[must_use]
     pub fn gen_bind_ok<'a, W: Write + BackToTheBuffer + 'a>(
         _: &'a BindOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -3716,11 +3915,13 @@ pub mod queue {
 
     impl Purge {
         /// Get the AMQP class id for purge (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             50
         }
 
         /// Get the AMQP method id for purge (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             30
         }
@@ -3741,6 +3942,7 @@ pub mod queue {
     }
 
     /// Serialize purge (Generated)
+    #[must_use]
     pub fn gen_purge<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Purge,
     ) -> impl SerializeFn<W> + 'a {
@@ -3763,11 +3965,13 @@ pub mod queue {
 
     impl PurgeOk {
         /// Get the AMQP class id for purge-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             50
         }
 
         /// Get the AMQP method id for purge-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             31
         }
@@ -3780,6 +3984,7 @@ pub mod queue {
     }
 
     /// Serialize purge-ok (Generated)
+    #[must_use]
     pub fn gen_purge_ok<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a PurgeOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -3804,11 +4009,13 @@ pub mod queue {
 
     impl Delete {
         /// Get the AMQP class id for delete (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             50
         }
 
         /// Get the AMQP method id for delete (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             40
         }
@@ -3831,6 +4038,7 @@ pub mod queue {
     }
 
     /// Serialize delete (Generated)
+    #[must_use]
     pub fn gen_delete<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Delete,
     ) -> impl SerializeFn<W> + 'a {
@@ -3855,11 +4063,13 @@ pub mod queue {
 
     impl DeleteOk {
         /// Get the AMQP class id for delete-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             50
         }
 
         /// Get the AMQP method id for delete-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             41
         }
@@ -3872,6 +4082,7 @@ pub mod queue {
     }
 
     /// Serialize delete-ok (Generated)
+    #[must_use]
     pub fn gen_delete_ok<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a DeleteOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -3896,11 +4107,13 @@ pub mod queue {
 
     impl Unbind {
         /// Get the AMQP class id for unbind (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             50
         }
 
         /// Get the AMQP method id for unbind (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             50
         }
@@ -3925,6 +4138,7 @@ pub mod queue {
     }
 
     /// Serialize unbind (Generated)
+    #[must_use]
     pub fn gen_unbind<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Unbind,
     ) -> impl SerializeFn<W> + 'a {
@@ -3944,11 +4158,13 @@ pub mod queue {
 
     impl UnbindOk {
         /// Get the AMQP class id for unbind-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             50
         }
 
         /// Get the AMQP method id for unbind-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             51
         }
@@ -3960,6 +4176,7 @@ pub mod queue {
     }
 
     /// Serialize unbind-ok (Generated)
+    #[must_use]
     pub fn gen_unbind_ok<'a, W: Write + BackToTheBuffer + 'a>(
         _: &'a UnbindOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -4020,6 +4237,7 @@ pub mod tx {
     }
 
     /// Serialize tx (Generated)
+    #[must_use]
     pub fn gen_tx<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a AMQPMethod,
     ) -> impl SerializeFn<W> + 'a {
@@ -4056,11 +4274,13 @@ pub mod tx {
 
     impl Select {
         /// Get the AMQP class id for select (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             90
         }
 
         /// Get the AMQP method id for select (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             10
         }
@@ -4072,6 +4292,7 @@ pub mod tx {
     }
 
     /// Serialize select (Generated)
+    #[must_use]
     pub fn gen_select<'a, W: Write + BackToTheBuffer + 'a>(
         _: &'a Select,
     ) -> impl SerializeFn<W> + 'a {
@@ -4086,11 +4307,13 @@ pub mod tx {
 
     impl SelectOk {
         /// Get the AMQP class id for select-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             90
         }
 
         /// Get the AMQP method id for select-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             11
         }
@@ -4102,6 +4325,7 @@ pub mod tx {
     }
 
     /// Serialize select-ok (Generated)
+    #[must_use]
     pub fn gen_select_ok<'a, W: Write + BackToTheBuffer + 'a>(
         _: &'a SelectOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -4116,11 +4340,13 @@ pub mod tx {
 
     impl Commit {
         /// Get the AMQP class id for commit (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             90
         }
 
         /// Get the AMQP method id for commit (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             20
         }
@@ -4132,6 +4358,7 @@ pub mod tx {
     }
 
     /// Serialize commit (Generated)
+    #[must_use]
     pub fn gen_commit<'a, W: Write + BackToTheBuffer + 'a>(
         _: &'a Commit,
     ) -> impl SerializeFn<W> + 'a {
@@ -4146,11 +4373,13 @@ pub mod tx {
 
     impl CommitOk {
         /// Get the AMQP class id for commit-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             90
         }
 
         /// Get the AMQP method id for commit-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             21
         }
@@ -4162,6 +4391,7 @@ pub mod tx {
     }
 
     /// Serialize commit-ok (Generated)
+    #[must_use]
     pub fn gen_commit_ok<'a, W: Write + BackToTheBuffer + 'a>(
         _: &'a CommitOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -4176,11 +4406,13 @@ pub mod tx {
 
     impl Rollback {
         /// Get the AMQP class id for rollback (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             90
         }
 
         /// Get the AMQP method id for rollback (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             30
         }
@@ -4192,6 +4424,7 @@ pub mod tx {
     }
 
     /// Serialize rollback (Generated)
+    #[must_use]
     pub fn gen_rollback<'a, W: Write + BackToTheBuffer + 'a>(
         _: &'a Rollback,
     ) -> impl SerializeFn<W> + 'a {
@@ -4206,11 +4439,13 @@ pub mod tx {
 
     impl RollbackOk {
         /// Get the AMQP class id for rollback-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             90
         }
 
         /// Get the AMQP method id for rollback-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             31
         }
@@ -4222,6 +4457,7 @@ pub mod tx {
     }
 
     /// Serialize rollback-ok (Generated)
+    #[must_use]
     pub fn gen_rollback_ok<'a, W: Write + BackToTheBuffer + 'a>(
         _: &'a RollbackOk,
     ) -> impl SerializeFn<W> + 'a {
@@ -4262,6 +4498,7 @@ pub mod confirm {
     }
 
     /// Serialize confirm (Generated)
+    #[must_use]
     pub fn gen_confirm<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a AMQPMethod,
     ) -> impl SerializeFn<W> + 'a {
@@ -4289,11 +4526,13 @@ pub mod confirm {
 
     impl Select {
         /// Get the AMQP class id for select (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             85
         }
 
         /// Get the AMQP method id for select (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             10
         }
@@ -4311,6 +4550,7 @@ pub mod confirm {
     }
 
     /// Serialize select (Generated)
+    #[must_use]
     pub fn gen_select<'a, W: Write + BackToTheBuffer + 'a>(
         method: &'a Select,
     ) -> impl SerializeFn<W> + 'a {
@@ -4328,11 +4568,13 @@ pub mod confirm {
 
     impl SelectOk {
         /// Get the AMQP class id for select-ok (Generated)
+        #[must_use]
         pub fn get_amqp_class_id(&self) -> Identifier {
             85
         }
 
         /// Get the AMQP method id for select-ok (Generated)
+        #[must_use]
         pub fn get_amqp_method_id(&self) -> Identifier {
             11
         }
@@ -4344,6 +4586,7 @@ pub mod confirm {
     }
 
     /// Serialize select-ok (Generated)
+    #[must_use]
     pub fn gen_select_ok<'a, W: Write + BackToTheBuffer + 'a>(
         _: &'a SelectOk,
     ) -> impl SerializeFn<W> + 'a {

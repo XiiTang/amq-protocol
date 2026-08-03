@@ -15,11 +15,13 @@ impl AMQPFlags {
     }
 
     /// Get the value of a boolean flag by name, if present
+    #[must_use]
     pub fn get_flag(&self, name: &str) -> Option<Boolean> {
         self.flags.iter().find(|(n, _)| n == name).map(|(_, v)| *v)
     }
 
     /// Get the AMQPFlags serialized for AMQP RPC
+    #[must_use]
     pub fn get_bytes(&self) -> Vec<u8> {
         self.flags
             .chunks(8)

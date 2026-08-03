@@ -1,4 +1,5 @@
 /// Convert input to camel case
+#[must_use]
 pub fn camel_case(name: &str) -> String {
     let mut new_word = true;
     name.chars().fold("".to_string(), |mut result, ch| {
@@ -23,6 +24,7 @@ pub fn camel_case(name: &str) -> String {
 /// "type" and "return" become "kind" and "r#return" if raw is true
 ///
 /// A word needs to be composed of at least two letters, this makes UInt become uint and not u_int
+#[must_use]
 pub fn snake_case(name: &str, raw: bool) -> String {
     match name {
         "return" if raw => "r#return".to_string(),

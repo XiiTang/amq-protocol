@@ -116,6 +116,7 @@ pub enum SASLMechanism {
 
 impl SASLMechanism {
     /// Get the name of the SASL mechanism as str
+    #[must_use]
     pub fn name(&self) -> &'static str {
         match self {
             SASLMechanism::AMQPlain => "AMQPLAIN",
@@ -268,6 +269,7 @@ impl fmt::Display for AMQPUri {
 
 impl AMQPScheme {
     /// The default port for this scheme
+    #[must_use]
     pub fn default_port(&self) -> u16 {
         match *self {
             AMQPScheme::AMQP => 5672,
