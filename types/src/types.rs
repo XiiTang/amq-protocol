@@ -422,3 +422,9 @@ mod test {
         );
     }
 }
+
+impl Drop for LongString {
+    fn drop(&mut self) {
+        zeroize::Zeroize::zeroize(&mut self.0);
+    }
+}

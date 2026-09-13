@@ -242,8 +242,37 @@ pub fn parse_long_string<I: ParsableInput>(i: I) -> ParserResult<I, LongString> 
     .parse(i)
 }
 
+// These parsers are synchronous. A thread-local guard bounds nested tables and
+// arrays without changing the generic Input contract or adding a second parser.
+std::thread_local! { static CONTAINER_DEPTH: std::cell::Cell<usize> = const { std::cell::Cell::new(0) }; }
+struct ContainerDepth;
+impl ContainerDepth {
+    fn enter() -> Option<Self> {
+        CONTAINER_DEPTH.with(|v| {
+            let n = v.get();
+            if n >= 16 {
+                None
+            } else {
+                v.set(n + 1);
+                Some(Self)
+            }
+        })
+    }
+}
+impl Drop for ContainerDepth {
+    fn drop(&mut self) {
+        CONTAINER_DEPTH.with(|v| v.set(v.get() - 1));
+    }
+}
+
 /// Parse a [FieldArray](../type.FieldArray.html)
 pub fn parse_field_array<I: ParsableInput>(i: I) -> ParserResult<I, FieldArray> {
+    let _depth = ContainerDepth::enter().ok_or_else(|| {
+        nom::Err::Failure(ParserErrors::from_error_kind(
+            i.clone(),
+            ErrorKind::TooLarge,
+        ))
+    })?;
     context(
         "parse_field_array",
         map_parser(
@@ -268,6 +297,12 @@ pub fn parse_timestamp<I: ParsableInput>(i: I) -> ParserResult<I, Timestamp> {
 
 /// Parse a [FieldTable](../type.FieldTable.html)
 pub fn parse_field_table<I: ParsableInput>(i: I) -> ParserResult<I, FieldTable> {
+    let _depth = ContainerDepth::enter().ok_or_else(|| {
+        nom::Err::Failure(ParserErrors::from_error_kind(
+            i.clone(),
+            ErrorKind::TooLarge,
+        ))
+    })?;
     context(
         "parse_field_table",
         map_parser(
@@ -589,5 +624,22 @@ mod test {
             parse_flags(&[0b11011101, 0b00000010][..], &names),
             Ok((EMPTY, flags))
         );
+    }
+}
+
+#[cfg(test)]
+mod bounded_container_tests {
+    use super::*;
+    #[test]
+    fn rejects_nested_containers_and_restores_depth_after_errors() {
+        let mut value = vec![b'V'];
+        for _ in 0..32 {
+            let mut outer = vec![b'A'];
+            outer.extend((value.len() as u32).to_be_bytes());
+            outer.extend(value);
+            value = outer;
+        }
+        assert!(parse_value(value.as_slice()).is_err());
+        assert!(parse_field_array(&[0, 0, 0, 0][..]).is_ok());
     }
 }
