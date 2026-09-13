@@ -55,6 +55,7 @@ dependencies = [
  "nom 8.0.0",
  "serde",
  "serde_json",
+ "zeroize",
 ]
 
 [[package]]
